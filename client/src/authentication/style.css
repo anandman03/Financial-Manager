@@ -1,0 +1,39 @@
+.auth {
+  /* Add shadows to create the "card" effect */
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 100px;
+  border-radius: 5px;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+/* On mouse-over, add a deeper shadow */
+.auth:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.item {
+  margin: 5px !important;
+}
+
+.line-break {
+  width: 90%;
+  padding: 10px;
+  border-top: 1px solid #bbb;
+  border-bottom: none;
+  text-align: center;
+}
+
+.google-btn {
+  margin-bottom: 15px !important;
+}
+
+:link {
+  color: #000;
+  text-decoration: none;
+}

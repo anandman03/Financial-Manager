@@ -1,0 +1,11 @@
+.navbar,
+.navbar-default {
+    width: 100%;
+    color: #fff !important;
+    background-image: linear-gradient(#3f51b5, #3f51b5) !important; /* override background image gradient w/ flat color */
+}
+
+.logout {
+    margin-left: auto;
+    text-align: right;
+}

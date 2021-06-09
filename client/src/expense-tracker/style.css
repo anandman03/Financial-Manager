@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+body {
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+}
+
+.home {
+  text-align: center;
+  align-content: center;
+  margin: 10px auto;
+}
+
+h1 {
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+h3, h2 {
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 15px;
+  margin: 40px 0 10px;
+}
+
+.user-welcome {
+  margin-top: 0px;
+  font-size: 13px !important;
+}
+
+h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.balance {
+  color: var(--black-text-light);
+}
+
+.inc-exp-container {
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.inc-exp-container > div {
+  flex: 1;
+  text-align: center;
+}
+
+.inc-exp-container > div:first-of-type {
+  border-right: 1px solid #dedede;
+}
+
+.money {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.money.plus {
+  color: #2ecc71;
+}
+
+.money.minus {
+  color: #c0392b;
+}
+
+.delete-btn {
+  width: 5px !important;
+  height: 30px;
+  font-size: 10px;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 5px;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.item {
+  margin: 5px !important;
+  padding: 5px !important;
+}
+
+#btn {
+  margin-bottom: 10px !important;
+}
+
+#type {
+  width: 150px !important;
+  margin-bottom: 10px !important;
+}

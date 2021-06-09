@@ -1,0 +1,9 @@
+.error {
+  margin-top: 100px !important;
+  text-align: center;
+}
+
+.error-img {
+  min-height: 300px;
+  min-width: 300px;
+}
