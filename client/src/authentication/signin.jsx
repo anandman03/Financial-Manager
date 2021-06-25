@@ -65,7 +65,7 @@ function SignInComponent(props) {
           New User? 
           <a href="/auth/signup"> Signup</a>
       </FormHelperText>
-      <h3 className="line-break">Continue with Google</h3>
+      {/* <h3 className="line-break">Continue with Google</h3> */}
       {/* <Button className="google-btn" variant="contained" color="primary" onClick={googleLogin}> */}
           {/* Login With Google */}
       {/* </Button> */}
