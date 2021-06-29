@@ -16,27 +16,24 @@ function SignInComponent(props) {
       }
     })
     .then(data => {
+      console.log(data);
       if(data.message === "Success") {
         props.history.push("/auth/signin");
+      }
+      else {
+        alert("Email/Password not correct type");
       }
     })
     .catch(error => {
       alert("Some Error Occured");
+      setName("");
       setEmail("");
       setPassword("");
     });
   }
 
-  function onNameChange(event) {
-    setName(String(event.target.value));
-  }
-
-  function onEmailChange(event) {
-    setEmail(String(event.target.value));
-  }
-
-  function onPasswordChange(event) {
-    setPassword(String(event.target.value));
+  function onChange(event, setter) {
+    setter(String(event.target.value));
   }
 
   return (
@@ -49,7 +46,7 @@ function SignInComponent(props) {
           type="text" 
           aria-describedby="my-helper-text" 
           value={name} 
-          onChange={onNameChange} 
+          onChange={event => onChange(event, setName)} 
         />
         <FormHelperText id="my-helper-text">* You have a nice name.</FormHelperText>
       </FormControl>
@@ -60,7 +57,7 @@ function SignInComponent(props) {
           type="email" 
           aria-describedby="my-helper-text" 
           value={email} 
-          onChange={onEmailChange} 
+          onChange={event => onChange(event, setEmail)} 
         />
         <FormHelperText id="my-helper-text">* We'll never share your email.</FormHelperText>
       </FormControl>
@@ -71,7 +68,7 @@ function SignInComponent(props) {
           aria-describedby="my-helper-text" 
           type="password" 
           value={password} 
-          onChange={onPasswordChange} 
+          onChange={event => onChange(event, setPassword)} 
         />
         <FormHelperText id="my-helper-text">* Password (minimum length - 6)</FormHelperText>
       </FormControl>

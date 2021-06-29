@@ -40,15 +40,14 @@ export default function FormComponent(props) {
       }
     })
     .catch(error => alert("Some Error Occured"));
-
     setDescription('');
     setAmount('');
     setType('');
   };
 
-  const onDescriptionChange = (event) => setDescription(event.target.value);
-  const onAmountChange = (event) => setAmount(Number(event.target.value));
-  const onTypeChange = (event) => setType(event.target.value);
+  function onChange(event, setter) {
+    setter(String(event.target.value));
+  }
 
   return (
     <div className="card">
@@ -56,10 +55,10 @@ export default function FormComponent(props) {
         <InputLabel htmlFor="my-input">Description</InputLabel>
         <Input 
           id="my-input"
-          type="email" 
+          type="text" 
           aria-describedby="my-helper-text" 
           value={description} 
-          onChange={onDescriptionChange} 
+          onChange={event => onChange(event, setDescription)} 
         />
       </FormControl>
       <FormControl className="item">
@@ -69,7 +68,7 @@ export default function FormComponent(props) {
           aria-describedby="my-helper-text" 
           type="number" 
           value={amount} 
-          onChange={onAmountChange} 
+          onChange={event => onChange(event, setAmount)} 
         />
       </FormControl>
       <FormControl className={classes.formControl} id="type">
@@ -78,7 +77,7 @@ export default function FormComponent(props) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={type}
-          onChange={onTypeChange}
+          onChange={event => onChange(event, setType)}
         >
         <MenuItem value="expense">Expense</MenuItem>
         <MenuItem value="income">Income</MenuItem>

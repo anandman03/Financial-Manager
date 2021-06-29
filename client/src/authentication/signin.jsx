@@ -9,6 +9,7 @@ function SignInComponent(props) {
 
   function handleLogin() {
     if(email === '' || password === '') {
+      alert("Email/Password can't be NULL");
       return;
     }
     fetch(`/auth/signin?email=${email}&password=${password}`, { method: "GET" })
@@ -19,18 +20,14 @@ function SignInComponent(props) {
       }
     })
     .catch(error => {
-      alert("Some Error Occured");
+      alert("Email/Password not correct");
       setEmail("");
       setPassword("");
     });
   }
 
-  function onEmailChange(event) {
-    setEmail(String(event.target.value));
-  }
-
-  function onPasswordChange(event) {
-    setPassword(String(event.target.value));
+  function onChange(event, setter) {
+    setter(String(event.target.value));
   }
 
   return (
@@ -39,11 +36,11 @@ function SignInComponent(props) {
       <FormControl className="item">
           <InputLabel htmlFor="my-input">Email</InputLabel>
           <Input 
-            id="my-input"
-            type="email" 
+            id="my-input" 
             aria-describedby="my-helper-text" 
+            type="email"
             value={email} 
-            onChange={onEmailChange} 
+            onChange={(event) => onChange(event, setEmail)} 
           />
           <FormHelperText id="my-helper-text">* We'll never share your email.</FormHelperText>
       </FormControl>
@@ -54,7 +51,7 @@ function SignInComponent(props) {
             aria-describedby="my-helper-text" 
             type="password" 
             value={password} 
-            onChange={onPasswordChange} 
+            onChange={(event) => onChange(event, setPassword)} 
           />
           <FormHelperText id="my-helper-text">* Password (minimum length - 6)</FormHelperText>
       </FormControl>
@@ -65,10 +62,6 @@ function SignInComponent(props) {
           New User? 
           <a href="/auth/signup"> Signup</a>
       </FormHelperText>
-      {/* <h3 className="line-break">Continue with Google</h3> */}
-      {/* <Button className="google-btn" variant="contained" color="primary" onClick={googleLogin}> */}
-          {/* Login With Google */}
-      {/* </Button> */}
   </div>
   );
 };
