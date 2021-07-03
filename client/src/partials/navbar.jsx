@@ -6,6 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './navbar.css';
 
 function NavbarComponent() {
+  function logout() {
+    fetch('logout', { method: "GET" })
+    .then(response => response.json())
+    .then(data => console.log("success"))
+    .catch(error => console.log("error"));
+  }
+
   return (
     <Navbar bg="light" variant="dark" expand="lg" className="navbar">
       <Navbar.Brand href="/">Financial Manager</Navbar.Brand>
@@ -16,7 +23,7 @@ function NavbarComponent() {
           <LinkContainer to="/app/crypto-tracker"><Nav.Link>Crypto Tracker</Nav.Link></LinkContainer>
         </Nav>
         <Form inline className="logout">
-          <Button variant="outline" href="/" style={{color: "#fff"}}>Logout</Button>
+          <Button onclick={logout} variant="outline" href="/" style={{color: "#fff"}}>Logout</Button>
         </Form>
       </Navbar.Collapse>
     </Navbar>

@@ -15,12 +15,11 @@ function SignInComponent(props) {
     fetch(`/auth/signin?email=${email}&password=${password}`, { method: "GET" })
     .then(response => response.json())
     .then(data => {
-      if(data.message === "Success") {
-        props.history.push("/app/expense-tracker");
-      }
+      if(data.status === "error") throw new Error(data.message);
+      else props.history.push("/app/expense-tracker");
     })
     .catch(error => {
-      alert("Email/Password not correct");
+      alert(error);
       setEmail("");
       setPassword("");
     });

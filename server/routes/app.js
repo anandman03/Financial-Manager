@@ -17,33 +17,23 @@ const getDate = () => {
 
 router.get('/expense-tracker/all', authMiddleware, async (request, response) => {
   let transactions = [];
-  const docRef = db.collection('transaction-history').doc(auth.currentUser.uid);
-  await docRef.get().then(doc => {
-    if(doc.exists) {
-      transactions = doc.data().transactions;
-    }
+  await db.collection('transaction-history').doc(auth.currentUser.uid).get()
+  .then(doc => {
+    transactions = (doc.exists) ? doc.data().transactions : [];
   })
   .catch(error => console.log("Error Occured"));
 
-  if(transactions === undefined) {
-    transactions = [];
-  }
-  response.json({ transactions: transactions });
+  response.status(200).json({ transactions: transactions });
 });
 
 router.put('/expense-tracker/update', authMiddleware, async (request, response) => {
   let transactions = [];
   const docRef = db.collection('transaction-history').doc(auth.currentUser.uid);
-  await docRef.get().then(doc => {
-    if(doc.exists) {
-      transactions = doc.data().transactions;
-    }
+  await docRef.get()
+  .then(doc => {
+    transactions = (doc.exists) ? doc.data().transactions : [];
   })
   .catch(error =>  console.log("Error Occured"));
-
-  if(transactions === undefined) {
-    transactions = [];
-  }
 
   transactions.unshift({
     ID: getID(),
@@ -53,18 +43,44 @@ router.put('/expense-tracker/update', authMiddleware, async (request, response) 
     description : request.query.description
   });
 
-  await docRef.update({ transactions: transactions })
-  .then(res => response.json({ message: "Success" }))
-  .catch(error => response.json({ message: "Error" }));
+  if(transactions.length === 1) {
+    await docRef.set({ transactions: transactions })
+    .then(() => {
+      return response.status(200).json({
+        status: "success", 
+        message: "success" 
+      });
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: "error",
+        message: error.message
+      });
+    });
+  }
+  else {
+    await docRef.update({ transactions: transactions })
+    .then(() => {
+      return response.status(200).json({
+        status: "success", 
+        message: "success" 
+      });
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: "error",
+        message: error.message
+      });
+    });
+  }
 });
 
 router.delete('/expense-tracker/delete', authMiddleware, async (request, response) => {
   let transactions = [];
   const docRef = db.collection('transaction-history').doc(auth.currentUser.uid);
-  await docRef.get().then(doc => {
-    if(doc.exists) {
-      transactions = doc.data().transactions;
-    }
+  await docRef.get()
+  .then(doc => {
+    transactions = (doc.exists) ? doc.data().transactions : [];
   })
   .catch(error =>  console.log("Error Occured"));
 
@@ -75,8 +91,18 @@ router.delete('/expense-tracker/delete', authMiddleware, async (request, respons
     }
   }
   await docRef.update({ transactions: transactions })
-  .then(res => response.json({ message: "Success" }))
-  .catch(error => response.json({ message: "Error" }));
+  .then(() => {
+    return response.status(200).json({
+      status: "success",
+      message: "success" 
+    });
+  })
+  .catch(error => {
+    return response.status(400).json({
+      status: "error",
+      message: error.message
+    });
+  });
 });
 
 module.exports = router;

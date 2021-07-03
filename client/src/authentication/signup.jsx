@@ -4,29 +4,22 @@ import { FormControl, InputLabel, Input, FormHelperText, Button } from '@materia
 import "./style.css";
 
 function SignInComponent(props) {
-  const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   function handleSignup() {
+    if(email === '' || password === '') {
+      alert("Email/Password can't be NULL");
+      return;
+    }
     fetch(`/auth/signup?email=${email}&password=${password}`, { method: "POST" })
-    .then(response => {
-      if(response.ok) {
-        return response.json();
-      }
-    })
+    .then(response => response.json())
     .then(data => {
-      console.log(data);
-      if(data.message === "Success") {
-        props.history.push("/auth/signin");
-      }
-      else {
-        alert("Email/Password not correct type");
-      }
+      if(data.status === "error") throw new Error(data.message);
+      else props.history.push("/auth/signin");
     })
     .catch(error => {
-      alert("Some Error Occured");
-      setName("");
+      alert(error);
       setEmail("");
       setPassword("");
     });
@@ -39,17 +32,6 @@ function SignInComponent(props) {
   return (
     <div className="auth"> 
       <h2>Signup</h2>
-      <FormControl className="item">
-        <InputLabel htmlFor="my-input">Name</InputLabel>
-        <Input 
-          id="my-input"
-          type="text" 
-          aria-describedby="my-helper-text" 
-          value={name} 
-          onChange={event => onChange(event, setName)} 
-        />
-        <FormHelperText id="my-helper-text">* You have a nice name.</FormHelperText>
-      </FormControl>
       <FormControl className="item">
         <InputLabel htmlFor="my-input">Email</InputLabel>
         <Input 

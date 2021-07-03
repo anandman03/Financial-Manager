@@ -80,10 +80,9 @@ export default function StickyHeadTable(props) {
   function removeTransaction(event) {
     fetch(`/app/expense-tracker/delete?ID=${event.currentTarget.id}`, { method: "DELETE" })
     .then(response => response.json())
-    .then(result => {
-      if(result.message === "Success") {
-        setUpdate(true);
-      }
+    .then(data => {
+      if(data.status === "error") throw new Error(data.message);
+      else setUpdate(true);
     })
     .catch(error => alert("Some Error Occured"));
   };

@@ -6,7 +6,7 @@ function authMiddleware(request, response, next) {
     next();
   }
   else {
-    router.redirect("/");
+    response.redirect("/");
   }
 }
 

@@ -34,12 +34,11 @@ export default function FormComponent(props) {
 
     fetch(`/app/expense-tracker/update?type=${type}&amount=${amount}&description=${description}`, { method: "PUT" })
     .then(response => response.json())
-    .then(result => {
-      if(result.message === "Success") {
-        props.setUpdate(true);
-      }
+    .then(data => {
+      if(data.status === "error") throw new Error(data.message);
+      else props.setUpdate(true);
     })
-    .catch(error => alert("Some Error Occured"));
+    .catch(error => alert(error));
     setDescription('');
     setAmount('');
     setType('');
